@@ -39,16 +39,11 @@ const routes = [
     ]
   },
     {
-    // Redirect path:  /event/:id to /events/:id
-    path: '/event/:id',
-    redirect: () => {// for comlex logic use: to
-      return { name: 'EventDetails'} // here you can do some complex logic: params: { id: to.params.id } 
-    },
-    // Redirect with children
-    children: [
-      { path: 'register', redirect: () => ({ name: 'EventRegister' }) },
-      { path: 'edit', redirect: () => ({ name: 'EventEdit' }) }
-    ]
+    // This is taking whatever comes after the matching word /event/ and placing it after /events/.
+    path: '/event/:afterEvent(.*)',
+    redirect: to => {
+      return { path: '/events/' + to.params.afterEvent }
+    }
   },
   
   {
