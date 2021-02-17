@@ -44,12 +44,18 @@ export default {
         this.event = response.data // <-- Event data which stored to event object
       })
       .catch(error => {
-        console.log(error)
-        // Load this component, if the API request when fetching an event returns an error
-        this.$router.push({ 
-            name: '404Resource', 
-            params: { resource: 'event' } })
+        if (error.response && error.response.status == 404) {
+            // Load this component, if the API request when fetching an event returns an error
+          this.$router.push({ 
+              name: '404Resource', 
+              params: { resource: 'event' } 
+              })
+        } else {
+            // Otherwise load NetworkError component
+          this.$router.push({ name: 'NetworkError' })
+        }
       })
+     
   }
 }
 </script>
