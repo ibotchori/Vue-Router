@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EventList from '../views/EventList.vue'
 import EventDetails from '@/views/event/Details.vue'
+import EventLayout from '../views/event/Layout.vue'
 import EventRegister from '@/views/event/Register.vue'
 import EventEdit from '@/views/event/Edit.vue'
 import About from '../views/About.vue'
@@ -14,22 +15,27 @@ const routes = [
     props: route => ({ page: parseInt(route.query.page) || 1 })
   },
   {
-    path: '/event/:id',
-    name: 'EventDetails',
+    path: '/event/:id', // <----- children are inheriting this path
+    name: 'EventLayout',
     props: true,
-    component: EventDetails
-  },
-  {
-    path: '/event/:id/register',
-    name: 'EventRegister',
-    props: true,
-    component: EventRegister
-  },
-  {
-    path: '/event/:id/edit',
-    name: 'EventEdit',
-    props: true,
-    component: EventEdit
+    component: EventLayout,
+    children: [  // <----- children are inheriting the path /event/:id from the parent route
+      {
+        path: '', // <-----  takes path from parent
+        name: 'EventDetails',
+        component: EventDetails
+      },
+      {
+        path: 'register', // <-----  takes root path from parent
+        name: 'EventRegister',
+        component: EventRegister
+      },
+      {
+        path: 'edit', // <-----  takes root path from parent
+        name: 'EventEdit',
+        component: EventEdit
+      }
+    ]
   },
   {
     path: '/about',
