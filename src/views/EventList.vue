@@ -2,13 +2,22 @@
   <h1>Events for Good</h1>
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
-      
-      <div class="pagination">
-        <router-link 
+
+    <div class="pagination">
+      <router-link
         :to="{ name: 'EventList', query: { page: page - 1 } }"
         rel="prev"
         v-if="page != 1"
-        >&#60; Previous</router-link
+        >&#60; Prev</router-link
+      >
+      <router-link :to="{ name: 'EventList', query: { page: 1 } }" rel="page1" 
+        >1</router-link
+      >
+      <router-link :to="{ name: 'EventList', query: { page: 2 } }" rel="page2"
+        >2</router-link
+      >
+      <router-link :to="{ name: 'EventList', query: { page: 3 } }" rel="page3"
+        >3</router-link
       >
 
       <router-link
@@ -18,7 +27,6 @@
         >Next &#62;</router-link
       >
     </div>
-  
   </div>
 </template>
 
@@ -36,20 +44,21 @@ export default {
   data() {
     return {
       events: null,
-      totalEvents: 0, // <--- Added this to store totalEvents
+      totalEvents: 0 // <--- Added this to store totalEvents
     }
   },
   created() {
-        watchEffect(() => { // <---- To call API again
+    watchEffect(() => {
+      // <---- To call API again
       this.events = null // <---- Clear events on page
-    EventService.getEvents(2, this.page) // <---- 2 events per page, and current page
-      .then(response => {
-        this.events = response.data,
-        this.totalEvents = response.headers['x-total-count']  // <--- Set totalEvents and store it
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      EventService.getEvents(2, this.page) // <---- 2 events per page, and current page
+        .then(response => {
+          ;(this.events = response.data),
+            (this.totalEvents = response.headers['x-total-count']) // <--- Set totalEvents and store it
+        })
+        .catch(error => {
+          console.log(error)
+        })
     })
   },
   computed: {
@@ -87,5 +96,8 @@ export default {
 
 #page-next {
   text-align: right;
+}
+.black {
+  background-color: #2c3e50;
 }
 </style>
