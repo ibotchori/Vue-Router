@@ -43,8 +43,14 @@ const routes = [
     path: '/event/:id',
     redirect: () => {// for comlex logic use: to
       return { name: 'EventDetails'} // here you can do some complex logic: params: { id: to.params.id } 
-    }
+    },
+    // Redirect with children
+    children: [
+      { path: 'register', redirect: () => ({ name: 'EventRegister' }) },
+      { path: 'edit', redirect: () => ({ name: 'EventEdit' }) }
+    ]
   },
+  
   {
     path: '/about-us',
     name: 'About',
