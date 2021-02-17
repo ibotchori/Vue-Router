@@ -13,6 +13,7 @@
     <router-link
       :to="{ name: 'EventList', query: { page: page + 1 } }"
       rel="next"
+      v-if="hasNextPage"
       >Next Page</router-link
     >
   
@@ -32,7 +33,8 @@ export default {
   },
   data() {
     return {
-      events: null
+      events: null,
+      totalEvents: 0, // <--- Added this to store totalEvents
     }
   },
   created() {
@@ -40,12 +42,22 @@ export default {
       this.events = null // <---- Clear events on page
     EventService.getEvents(2, this.page) // <---- 2 events per page, and current page
       .then(response => {
-        this.events = response.data
+        this.events = response.data,
+        this.totalEvents = response.headers['x-total-count']  // <--- Set totalEvents and store it
       })
       .catch(error => {
         console.log(error)
       })
     })
+  },
+  computed: {
+    hasNextPage() {
+      // First, calculate total pages
+      var totalPages = Math.ceil(this.totalEvents / 2) // 2 is events per page
+
+      // Then check to see if the current page is less than the total pages.
+      return this.page < totalPages
+    }
   }
 }
 </script>
