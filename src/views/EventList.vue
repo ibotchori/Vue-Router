@@ -11,6 +11,7 @@ import EventService from '@/services/EventService.js'
 
 export default {
   name: 'EventList',
+  props: ['page'], // <---- receive the param as a prop, the current page
   components: {
     EventCard
   },
@@ -20,7 +21,7 @@ export default {
     }
   },
   created() {
-    EventService.getEvents()
+    EventService.getEvents(2, this.page) // <---- 2 events per page, and current page
       .then(response => {
         this.events = response.data
       })
