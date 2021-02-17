@@ -59,13 +59,19 @@ const routes = [
   //   redirect: { name: "About" }
   // }  
 
-    {
+  { /*** Error Handling Routes ***/
     // catches everything that hasn’t matched a current route our NotFound component, 
     // and when this is matched, we'll load up our NotFound component.
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: NotFound
-  }
+  },
+  {
+    path: '/404/:resource', // Path with the dynamic segment of resource.
+    name: '404Resource',
+    component: NotFound,
+    props: true // Sending resources parameter as a prop
+  },
 ]
 
 const router = createRouter({

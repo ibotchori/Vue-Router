@@ -45,6 +45,10 @@ export default {
       })
       .catch(error => {
         console.log(error)
+        // Load this component, if the API request when fetching an event returns an error
+        this.$router.push({ 
+            name: '404Resource', 
+            params: { resource: 'event' } })
       })
   }
 }
