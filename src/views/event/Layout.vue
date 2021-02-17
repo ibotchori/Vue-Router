@@ -6,17 +6,21 @@
     <h1>{{ event.title }}</h1>
     <div id="nav">
       <!-- URL= /event/2 -->
-      <router-link :to="{ name: 'EventDetails', params: { id } }"
+      <!-- when the router-link is rendered in the template 
+      (if it’s not sent in) it will look at the URL parameters,
+      and if :id exists in the current route, it will use the 
+      :id in all of the link URLs.  -->
+      <router-link :to="{ name: 'EventDetails'}"
         >Details</router-link
       >
       |
       <!-- URL= /event/2/register -->
-      <router-link :to="{ name: 'EventRegister', params: { id } }"
+      <router-link :to="{ name: 'EventRegister'}"
         >Register</router-link
       >
       |
       <!-- URL= /event/2/edit  -->
-      <router-link :to="{ name: 'EventEdit', params: { id } }"
+      <router-link :to="{ name: 'EventEdit'}"
         >Edit</router-link
       >
     </div>
