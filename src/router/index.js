@@ -5,6 +5,7 @@ import EventLayout from '../views/event/Layout.vue'
 import EventRegister from '@/views/event/Register.vue'
 import EventEdit from '@/views/event/Edit.vue'
 import About from '../views/About.vue'
+import NotFound from '../views/NotFound.vue'
 
 const routes = [
   {
@@ -57,6 +58,14 @@ const routes = [
   //   path: '/about', 
   //   redirect: { name: "About" }
   // }  
+
+    {
+    // catches everything that hasn’t matched a current route our NotFound component, 
+    // and when this is matched, we'll load up our NotFound component.
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  }
 ]
 
 const router = createRouter({
