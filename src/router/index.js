@@ -15,7 +15,7 @@ const routes = [
     props: route => ({ page: parseInt(route.query.page) || 1 })
   },
   {
-    path: '/event/:id', // <----- children are inheriting this path
+    path: '/events/:id', // <----- children are inheriting this path // make plural 'events'
     name: 'EventLayout',
     props: true,
     component: EventLayout,
@@ -34,8 +34,16 @@ const routes = [
         path: 'edit', // <-----  takes root path from parent
         name: 'EventEdit',
         component: EventEdit
-      }
+      },
+      
     ]
+  },
+    {
+    // Redirect path:  /event/:id to /events/:id
+    path: '/event/:id',
+    redirect: () => {// for comlex logic use: to
+      return { name: 'EventDetails'} // here you can do some complex logic: params: { id: to.params.id } 
+    }
   },
   {
     path: '/about-us',
