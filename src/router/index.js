@@ -47,12 +47,16 @@ const routes = [
   },
   
   {
-    path: '/about-us',
+    path: '/about',
     name: 'About',
-    component: About,
+    component: About
     // Redirect path /about to /about-us
-    alias: '/about' // <-- its makes same content in two places and Google might penalaize (CEO)
+    // alias: '/about' // <-- its makes same content in two places and Google might penalaize (CEO)
   },
+  //   { // Redirect path /about to /about-us
+  //   path: '/about', 
+  //   redirect: { name: "About" }
+  // }  
 ]
 
 const router = createRouter({
